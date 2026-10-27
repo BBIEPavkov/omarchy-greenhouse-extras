@@ -166,9 +166,9 @@ BorderSurface {
 
           Text {
             Layout.alignment: Qt.AlignTop
-            text: "\uDB80\uDF2A"
-            color: Commons.Color.accent
-            font.family: Style.font.family
+            text: "✿"
+            color: "#D98FA8"
+            font.family: "DejaVu Sans"
             font.pixelSize: Style.font.title
           }
 

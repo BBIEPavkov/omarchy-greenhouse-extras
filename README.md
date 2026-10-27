@@ -17,10 +17,10 @@ The script asks before each piece. Run it again any time to add pieces you skipp
 
 | Extra | What you get |
 |-------|--------------|
-| Lock screen | Pothos vines grow down from the top and unfurl their leaves, a soft serif clock and date, leaf password dots, thirsty messages and a water drop on each wrong password, a leaf burst on unlock. The layout drifts slowly to avoid burn-in. |
-| Bar and popups | A Fraunces serif clock, a leaf on the current workspace, volume and brightness levels shown as growing leaves, and a leaf on every notification |
-| Cursor | Leaf green cursor (a recolor of [Catppuccin Cursors](https://github.com/catppuccin/cursors), GPL-2.0) |
-| Terminal prompt | A green leaf before the folder name, 🥀 after a failed command ([Starship](https://starship.rs)) |
+| Lock screen | Pothos vines grow down from the top, unfurl their leaves and open pink blossoms, a soft serif clock and date, leaf password dots, thirsty messages and a water drop on each wrong password, a burst of petals and leaves on unlock. The layout drifts slowly to avoid burn-in. |
+| Bar and popups | A Fraunces serif clock, a pink blossom on the current workspace, volume and brightness levels shown as growing leaves, and a blossom on every notification |
+| Cursor | Leaf green cursor with a Pink Princess pink tip (a recolor of [Catppuccin Cursors](https://github.com/catppuccin/cursors), GPL-2.0) |
+| Terminal prompt | A pink blossom before the folder name, 🥀 after a failed command ([Starship](https://starship.rs)) |
 | Screensaver | A monstera leaf in place of the Omarchy logo |
 
 ## Fastfetch (Terminal Logo)

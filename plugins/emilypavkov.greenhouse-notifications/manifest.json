@@ -4,7 +4,7 @@
   "name": "Greenhouse Notifications",
   "version": "1.0.0",
   "author": "Emily Pavkov",
-  "description": "Notifications with a leaf before each title",
+  "description": "Notifications with a pink blossom before each title",
   "kinds": [
     "service"
   ],

@@ -59,7 +59,10 @@ BarWidget {
         readonly property bool focused: Hyprland.focusedWorkspace !== null && Hyprland.focusedWorkspace.id === modelData
 
         bar: root.bar
-        text: focused ? "\uDB80\uDF2A" : (modelData === 10 ? "0" : String(modelData))
+        text: focused ? "✿" : (modelData === 10 ? "0" : String(modelData))
+        fontFamily: focused ? "DejaVu Sans" : (root.bar ? root.bar.fontFamily : Style.font.family)
+        // Pink Princess pink for the blossom on the current workspace.
+        foreground: focused ? "#D98FA8" : (root.bar ? root.bar.barForeground : Color.foreground)
         opacity: occupied || focused ? 1 : 0.5
         horizontalMargin: 6
         verticalPadding: 6

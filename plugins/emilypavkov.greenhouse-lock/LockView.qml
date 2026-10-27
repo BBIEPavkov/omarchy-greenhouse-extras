@@ -38,6 +38,9 @@ Item {
 
   // Leaf greens are shifted from the theme accent so any theme still gets a
   // matching spread: deeper, brighter, warmer (pothos) and cooler (snake plant).
+  // Pink Princess philodendron pink, for the blossoms and petals.
+  readonly property var petalColors: ["#D98FA8", "#EAB0C2", "#C97A95"]
+
   readonly property var leafColors: [
     Color.accent,
     Qt.darker(Color.accent, 1.35),
@@ -46,7 +49,7 @@ Item {
     Qt.hsla(Math.min(1, Color.accent.hslHue + 0.08), Color.accent.hslSaturation * 0.8, Color.accent.hslLightness * 0.9, 1)
   ]
 
-  readonly property string placeholderText: "Welcome back 🌿"
+  readonly property string placeholderText: "Welcome back 🌸"
   readonly property int fieldWidth: 381
   readonly property int fieldHeight: 67
   readonly property int outlineThickness: 3
@@ -113,11 +116,14 @@ Item {
     for (var i = 0; i < count; i++) {
       var angle = Math.random() * Math.PI * 2
       var dist = distance * (0.4 + Math.random() * 0.6)
-      burstLeaf.createObject(bursts, {
+      var petal = Math.random() < 0.55
+      (petal ? burstPetal : burstLeaf).createObject(bursts, {
         startX: cx, startY: cy,
         endX: cx + Math.cos(angle) * dist,
         endY: cy + Math.sin(angle) * dist,
-        leafColor: root.leafColors[Math.floor(Math.random() * root.leafColors.length)]
+        leafColor: petal
+          ? root.petalColors[Math.floor(Math.random() * root.petalColors.length)]
+          : root.leafColors[Math.floor(Math.random() * root.leafColors.length)]
       })
     }
   }
@@ -176,6 +182,38 @@ Item {
       strokeWidth: 1.2
       startX: 0; startY: leaf.leafLength * 0.05
       PathQuad { x: 0; y: leaf.leafLength * 0.85; controlX: leaf.leafWidth * 0.06; controlY: leaf.leafLength * 0.45 }
+    }
+  }
+
+  // A five-petal blossom centered on (0, 0).
+  component Blossom: Item {
+    id: blossom
+    property real size: 18
+    property color petalColor: root.petalColors[0]
+
+    Repeater {
+      model: 5
+
+      Rectangle {
+        required property int index
+        width: blossom.size * 0.55
+        height: blossom.size * 0.38
+        radius: height / 2
+        color: blossom.petalColor
+        x: 0
+        y: -height / 2
+        transformOrigin: Item.Left
+        rotation: index * 72 - 90
+      }
+    }
+
+    Rectangle {
+      width: blossom.size * 0.24
+      height: width
+      radius: width / 2
+      x: -width / 2
+      y: -height / 2
+      color: "#E8D08A"
     }
   }
 
@@ -288,6 +326,24 @@ Item {
               Behavior on scale { NumberAnimation { duration: 500; easing.type: Easing.OutBack } }
             }
           }
+
+          // Blossoms open between the leaves once the vine has grown past them.
+          Repeater {
+            model: Math.max(1, Math.floor(vine.leafCount / 3))
+
+            Blossom {
+              required property int index
+              readonly property real t: (index * 3 + 2.5) / (vine.leafCount + 0.5)
+              readonly property real open: Math.max(0, Math.min(1, (vine.grown - t) * 4))
+              size: 24 + ((vine.index + index) * 5) % 10
+              petalColor: root.petalColors[(vine.index + index) % root.petalColors.length]
+              x: Math.sin(t * Math.PI * 2) * vine.wave * 0.5
+              y: vine.length * t
+              scale: open
+              rotation: 40 * (1 - open) + vine.index * 11
+              opacity: 0.95
+            }
+          }
         }
       }
     }
@@ -320,6 +376,7 @@ Item {
       Text {
         anchors.horizontalCenter: parent.horizontalCenter
         text: Qt.formatTime(root.now, "h:mm")
+        font.italic: true
         color: Color.lock.text
         font.family: fraunces.name
         font.variableAxes: { "wght": 300, "opsz": 144, "SOFT": 100 }
@@ -478,6 +535,36 @@ Item {
     Item {
       id: bursts
       anchors.fill: parent
+    }
+
+    Component {
+      id: burstPetal
+
+      Rectangle {
+        id: petal
+        property real startX
+        property real startY
+        property real endX
+        property real endY
+        property color leafColor
+        readonly property int lifeMs: 900 + Math.random() * 700
+        width: 8 + Math.random() * 8
+        height: width * 0.6
+        radius: height / 2
+        color: leafColor
+        x: startX
+        y: startY
+        rotation: Math.random() * 360
+
+        ParallelAnimation {
+          running: true
+          NumberAnimation { target: petal; property: "x"; to: petal.endX; duration: petal.lifeMs; easing.type: Easing.OutCubic }
+          NumberAnimation { target: petal; property: "y"; to: petal.endY + 90; duration: petal.lifeMs; easing.type: Easing.InOutSine }
+          NumberAnimation { target: petal; property: "rotation"; to: petal.rotation + (Math.random() < 0.5 ? -360 : 360); duration: petal.lifeMs }
+          NumberAnimation { target: petal; property: "opacity"; from: 1; to: 0; duration: petal.lifeMs; easing.type: Easing.InQuad }
+          onFinished: petal.destroy()
+        }
+      }
     }
 
     Component {

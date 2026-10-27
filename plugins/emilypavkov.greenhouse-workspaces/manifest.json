@@ -4,7 +4,7 @@
   "name": "Greenhouse Workspaces",
   "version": "1.0.0",
   "author": "Emily Pavkov",
-  "description": "Workspace numbers with a leaf on the current one",
+  "description": "Workspace numbers with a pink blossom on the current one",
   "kinds": [
     "bar-widget"
   ],

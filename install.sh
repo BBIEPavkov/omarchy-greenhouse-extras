@@ -31,11 +31,11 @@ if ask "Install the Greenhouse lock screen? (hanging pothos vines, leaf password
   copy_plugins emilypavkov.greenhouse-lock
 fi
 
-if ask "Install the leaf bar? (serif clock, a leaf on the current workspace, leaf volume and brightness popups, a leaf on each notification)"; then
+if ask "Install the leaf bar? (serif clock, a blossom on the current workspace, leaf volume and brightness popups, a blossom on each notification)"; then
   copy_plugins emilypavkov.greenhouse-clock emilypavkov.greenhouse-workspaces emilypavkov.greenhouse-osd emilypavkov.greenhouse-notifications
 fi
 
-if ask "Install the leaf green cursor?"; then
+if ask "Install the leaf green cursor with a pink tip?"; then
   mkdir -p "$HOME/.local/share/icons"
   rm -rf "$HOME/.local/share/icons/$CURSOR_THEME"
   cp -r "$EXTRAS/cursors/$CURSOR_THEME" "$HOME/.local/share/icons/"
@@ -45,7 +45,7 @@ if ask "Install the leaf green cursor?"; then
   hyprctl configerrors
 fi
 
-if ask "Install the leaf terminal prompt? (replaces ~/.config/starship.toml; your current one is backed up)"; then
+if ask "Install the blossom terminal prompt? (replaces ~/.config/starship.toml; your current one is backed up)"; then
   if [[ -f $HOME/.config/starship.toml ]]; then
     cp "$HOME/.config/starship.toml" "$HOME/.config/starship.toml.bak.$(date +%s)"
   fi
