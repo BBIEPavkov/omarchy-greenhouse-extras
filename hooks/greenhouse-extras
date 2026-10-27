@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Turns the Greenhouse extras on when the Greenhouse theme is set and off for
+# any other theme. Installed by omarchy-greenhouse-extras/install.sh.
+
+theme=$1
+plugins_dir="$HOME/.config/omarchy/plugins"
+cursor=greenhouse-leaf-cursors
+
+installed=()
+for id in emilypavkov.greenhouse-lock emilypavkov.greenhouse-workspaces emilypavkov.greenhouse-osd emilypavkov.greenhouse-clock emilypavkov.greenhouse-notifications; do
+  [[ -e $plugins_dir/$id ]] && installed+=("$id")
+done
+
+if [[ $theme == greenhouse ]]; then
+  for id in "${installed[@]}"; do
+    # Turning on a clone only replaces the built-in, so turn off other clones of it too.
+    source=$(jq -r '.omarchy.clonedFrom' "$plugins_dir/$id/manifest.json")
+    omarchy-plugin-list --json | jq -r --arg src "$source" --arg id "$id" \
+      '.[] | select(.enabled and .clonedFrom == $src and .id != $id) | .id' |
+      while read -r other; do omarchy-plugin-disable "$other" >/dev/null; done
+    omarchy-plugin-enable "$id" >/dev/null
+  done
+  if [[ -d $HOME/.local/share/icons/$cursor ]]; then
+    gsettings set org.gnome.desktop.interface cursor-theme "$cursor"
+    hyprctl setcursor "$cursor" 24 >/dev/null
+  fi
+else
+  # Turning off a clone brings back the built-in it replaced.
+  for id in "${installed[@]}"; do omarchy-plugin-disable "$id" >/dev/null; done
+  if [[ $(gsettings get org.gnome.desktop.interface cursor-theme) == "'$cursor'" ]]; then
+    gsettings reset org.gnome.desktop.interface cursor-theme
+  fi
+fi
+exit 0

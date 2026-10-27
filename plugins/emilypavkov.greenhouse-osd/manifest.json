@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "emilypavkov.greenhouse-osd",
+  "name": "Greenhouse OSD",
+  "version": "1.0.0",
+  "description": "Volume and brightness popups with a row of growing leaves",
+  "kinds": [
+    "panel"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "panel": "Osd.qml"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.osd"
+  },
+  "author": "Emily Pavkov"
+}

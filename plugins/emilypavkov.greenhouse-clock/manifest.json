@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "emilypavkov.greenhouse-clock",
+  "name": "Greenhouse Clock",
+  "version": "1.0.0",
+  "author": "Emily Pavkov",
+  "description": "Date and time in the Fraunces serif font, with a calendar popup",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Greenhouse Clock",
+    "description": "Date/time label with a calendar popup",
+    "category": "Time",
+    "allowMultiple": false
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.clock"
+  }
+}

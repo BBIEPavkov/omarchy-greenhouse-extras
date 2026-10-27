@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "emilypavkov.greenhouse-notifications",
+  "name": "Greenhouse Notifications",
+  "version": "1.0.0",
+  "author": "Emily Pavkov",
+  "description": "Notifications with a leaf before each title",
+  "kinds": [
+    "service"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "service": "Service.qml"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.notifications"
+  }
+}
